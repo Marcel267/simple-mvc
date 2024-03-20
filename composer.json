@@ -1,0 +1,20 @@
+{
+    "name": "marti/mvc",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Marcel267",
+            "email": "martinez.otano2000@web.de"
+        }
+    ],
+    "require": {},
+    "scripts": {
+        "autoload": [
+            "composer dump-autoload"
+        ]
+    }
+}
