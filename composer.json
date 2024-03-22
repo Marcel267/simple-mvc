@@ -11,10 +11,12 @@
             "email": "martinez.otano2000@web.de"
         }
     ],
-    "require": {},
     "scripts": {
         "autoload": [
             "composer dump-autoload"
         ]
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
     }
 }
