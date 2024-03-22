@@ -1,7 +1,7 @@
 <h1>Welcome to Simple PHP MVC Starter!</h1>
 
 <ul>
-    <?php foreach ($journals as $journal) : ?>
-        <li><?= $journal->name ?> (<?= $journal->publishedYear ?>)</li>
+    <?php foreach ($tasks as $task) : ?>
+        <li><?= $task->description ?> (<?= $task->completed ?>)</li>
     <?php endforeach; ?>
 </ul>

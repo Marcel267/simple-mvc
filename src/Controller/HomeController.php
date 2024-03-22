@@ -3,17 +3,21 @@
 namespace App\Controller;
 
 use App\Controller;
-use App\Model\Journal;
+use App\Model\Task;
 
 class HomeController extends Controller
 {
+    private Task $taskModel;
+
+    public function __construct()
+    {
+        $this->taskModel = new Task;
+    }
+
     public function index()
     {
-        $journals = [
-            new Journal('My Third Journal Entry', '2023'),
-            new Journal('My Second Journal Entry', '2022'),
-            new Journal('My First Journal Entry', '2021')
-        ];
-        $this->render('index', ['journals' => $journals]);
+        $tasks = $this->taskModel->selectAll();
+
+        $this->render('index', ['tasks' => $tasks]);
     }
 }
