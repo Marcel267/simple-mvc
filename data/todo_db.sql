@@ -21,8 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `todo_db`
 --
-CREATE DATABASE IF NOT EXISTS `todo_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `todo_db`;
+CREATE DATABASE IF NOT EXISTS `simple_mvc` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `simple_mvc`;
 
 -- --------------------------------------------------------
 
