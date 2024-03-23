@@ -20,4 +20,9 @@ class HomeController extends Controller
 
         $this->render('index', ['tasks' => $tasks]);
     }
+
+    public function about()
+    {
+        $this->render('about');
+    }
 }
