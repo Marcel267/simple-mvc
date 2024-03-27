@@ -30,4 +30,9 @@ class HomeController extends Controller
     {
         $this->render('about');
     }
+
+    public function aboutWithParam(int|string $param, RouteCollection $routes)
+    {
+        $this->render('about', ['param' => $param]);
+    }
 }

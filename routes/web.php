@@ -12,3 +12,7 @@ $routes->add('about', new Route('/about', [
     'controller' => 'HomeController',
     'method' => 'about'
 ], []));
+$routes->add('about_with_param', new Route('/about/{param}', [
+    'controller' => 'HomeController',
+    'method' => 'aboutWithParam'
+]));
