@@ -14,16 +14,17 @@ use PDOException;
  */
 class Database
 {
+    private static $instance = null;
+
     private $host;
     private $user;
     private $pass;
     private $name;
-
     private $db_handler;
     private $stmt;
     private $error;
 
-    public function __construct()
+    private function __construct()
     {
         $this->host = $_ENV['DB_HOST'];
         $this->user = $_ENV['DB_USER'];
@@ -44,6 +45,14 @@ class Database
             $this->error = $e->getMessage();
             echo $this->error;
         }
+    }
+
+    public static function getInstance()
+    {
+        if (self::$instance == null) {
+            self::$instance = new static();
+        }
+        return self::$instance;
     }
 
     // Prepare statement with query
