@@ -2,51 +2,39 @@
 
 namespace App;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\RequestContext;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Matcher\UrlMatcher;
-use Symfony\Component\Routing\Exception\MethodNotAllowedException;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\Routing\Exception\NoConfigurationException;
-
 class Router
 {
-    public function __invoke(RouteCollection $routes)
+    protected $routes = [];
+
+    private function addRoute($route, $controller, $action, $method)
     {
-        $context = new RequestContext();
-        $context->fromRequest(Request::createFromGlobals());
 
-        // Routing can match routes with incoming requests
-        $matcher = new UrlMatcher($routes, $context);
-        try {
-            $arrayUri = explode('?', $_SERVER['REQUEST_URI']);
-            $matcher = $matcher->match($arrayUri[0]);
+        $this->routes[$method][$route] = ['controller' => $controller, 'action' => $action];
+    }
 
-            // Cast params to int if numeric
-            array_walk($matcher, function (&$param) {
-                if (is_numeric($param)) {
-                    $param = (int) $param;
-                }
-            });
+    public function get($route, $controller, $action)
+    {
+        $this->addRoute($route, $controller, $action, "GET");
+    }
 
-            $className = '\\App\\Controller\\' . $matcher['controller'];
-            $classInstance = new $className();
+    public function post($route, $controller, $action)
+    {
+        $this->addRoute($route, $controller, $action, "POST");
+    }
 
-            // Add routes as paramaters to the next class
-            $params = array_merge(array_slice($matcher, 2, -1), ['routes' => $routes]);
+    public function dispatch()
+    {
+        $uri = strtok($_SERVER['REQUEST_URI'], '?');
+        $method =  $_SERVER['REQUEST_METHOD'];
 
-            call_user_func_array([$classInstance, $matcher['method']], $params);
-        } catch (MethodNotAllowedException $e) {
-            echo 'Route method is not allowed.';
-        } catch (ResourceNotFoundException $e) {
-            echo 'Route does not exists.';
-        } catch (NoConfigurationException $e) {
-            echo 'Configuration does not exists.';
+        if (array_key_exists($uri, $this->routes[$method])) {
+            $controller = $this->routes[$method][$uri]['controller'];
+            $action = $this->routes[$method][$uri]['action'];
+
+            $controller = new $controller();
+            $controller->$action();
+        } else {
+            throw new \Exception("No route found for URI: $uri");
         }
     }
 }
-
-// Invoke
-$router = new Router();
-$router($routes);

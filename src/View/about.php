@@ -1,4 +1,3 @@
 <?php require_once APPROOT . '/src/View/include/header.php'; ?>
 <h1>About page</h1>
-<?= $param ? "param: $param" : "" ?>
 <?php require_once APPROOT . '/src/View/include/footer.php'; ?>

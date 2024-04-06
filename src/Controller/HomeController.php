@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Controller;
 use App\Model\Task;
-use Symfony\Component\Routing\RouteCollection;
 
 class HomeController extends Controller
 {
@@ -15,24 +14,15 @@ class HomeController extends Controller
         $this->taskModel = new Task;
     }
 
-    public function index(RouteCollection $routes)
+    public function index()
     {
         $tasks = $this->taskModel->selectAll();
-        $routeToAbout = $routes->get('about')->getPath();
 
-        $this->render('index', [
-            'tasks' => $tasks,
-            'routeToAbout' => $routeToAbout
-        ]);
+        $this->render('index', ['tasks' => $tasks]);
     }
 
-    public function about(RouteCollection $routes)
+    public function about()
     {
         $this->render('about');
-    }
-
-    public function aboutWithParam(int|string $param, RouteCollection $routes)
-    {
-        $this->render('about', ['param' => $param]);
     }
 }
