@@ -2,23 +2,38 @@
 
 namespace App\Controller;
 
+use App\Container;
 use App\Controller;
-use App\Model\Task;
+use App\Entity\Task;
+use Doctrine\ORM\EntityManagerInterface;
 
 class HomeController extends Controller
 {
-    private Task $taskModel;
+    private EntityManagerInterface $em;
 
     public function __construct()
     {
-        $this->taskModel = new Task;
+        $this->em = Container::get('em');
     }
 
     public function index()
     {
-        $tasks = $this->taskModel->selectAll();
+        $taskRepository = $this->em->getRepository(Task::class);
+        $tasks = $taskRepository->findAll();
 
+        // dd($tasks);
         $this->render('index', ['tasks' => $tasks]);
+    }
+
+    public function create()
+    {
+        $task = new Task();
+        $task->setDescription('JOOOOOO');
+        $task->setIsActive(0);
+
+        $this->em->persist($task);
+        $this->em->flush();
+        echo 'Task created';
     }
 
     public function about()

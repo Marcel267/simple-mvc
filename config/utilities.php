@@ -13,3 +13,12 @@ function getUri(): string
 
     return $uri;
 }
+
+/**
+ * Var dump variable and terminate script.
+ */
+function dd($var): void
+{
+    var_dump($var);
+    die();
+}

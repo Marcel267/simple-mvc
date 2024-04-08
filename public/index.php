@@ -1,8 +1,5 @@
 <?php
 
-require '../vendor/autoload.php';
+require_once '../bootstrap.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
-
-$router = require '../src/Route/index.php';
+$router = require '../src/Route/web.php';

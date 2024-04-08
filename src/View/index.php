@@ -3,7 +3,8 @@
 
 <ul>
     <?php foreach ($tasks as $task) : ?>
-        <li><?= $task->description ?> (<?= $task->completed ?>)</li>
+        <li><?= $task->getId() . ' : ' . $task->getDescription() ?> (<?= $task->getIsActive() ?>)</li>
+        -----------------------
     <?php endforeach; ?>
 </ul>
 <?php require_once APPROOT . '/src/View/include/footer.php'; ?>
