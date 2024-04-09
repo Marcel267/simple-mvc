@@ -42,8 +42,11 @@ class Router
 
     public function dispatch()
     {
+        // dd('AAAAA');
         $uri = strtok($_SERVER['REQUEST_URI'], '?');
-        $method =  $_SERVER['REQUEST_METHOD'];
+        $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
+        // dd($method);
+
 
         // Iterate through routes to find a match
         foreach ($this->routes[$method] as $route => $handler) {
