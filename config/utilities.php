@@ -17,8 +17,17 @@ function getUri(): string
 /**
  * Var dump variable and terminate script.
  */
-function dd($var): void
+function dd($value): void
 {
-    var_dump($var);
+    echo "<pre>";
+    var_dump($value);
+    echo "</pre>";
+
     die();
+}
+
+function redirect($path)
+{
+    header("location: {$path}");
+    exit();
 }
