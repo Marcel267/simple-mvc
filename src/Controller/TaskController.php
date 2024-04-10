@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Container;
 use App\Controller;
+use App\Entity\Category;
 use App\Entity\Task;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -103,10 +104,19 @@ class TaskController extends Controller
 
     public function createDemoTasks()
     {
+
+        $category = $this->em->getRepository(Category::class)->findOneBy(['id' => 1]);
+        if (!$category) {
+            $category = new Category();
+            $category->setName('Kategorie 1');
+            $this->em->persist($category);
+        }
+
         for ($i = 0; $i < 5; $i++) {
             $task = new Task();
             $task->setDescription('Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum voluptas voluptatem hic fugiat atque eum labore! Alias a inventore ad sapiente magnam rem eligendi dolores blanditiis sit, corrupti neque vel!');
             $task->setIsActive(($i % 2 == 0) ? 0 : 1);
+            $task->setCategory($category);
             $this->em->persist($task);
         }
         $this->em->flush();

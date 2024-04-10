@@ -48,4 +48,14 @@ class Task
     {
         return $this->isActive;
     }
+
+    public function setCategory(Category $category): void
+    {
+        $this->category = $category;
+    }
+
+    public function getCategory(): Category
+    {
+        return $this->category;
+    }
 }
