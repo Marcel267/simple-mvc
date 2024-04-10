@@ -51,36 +51,59 @@ class TaskController extends Controller
             redirect('/');
         }
 
-        throw new \Exception('Note could not be created');
+        die('Note could not be created');
     }
 
     //show task edit form
-    public function edit()
+    public function edit($taskId)
     {
-        echo 'edit route';
+        $task = $this->em->getRepository(Task::class)->findOneBy(['id' => $taskId]);
+
+        if (!$task) {
+            die('Task not found');
+        }
+        $this->render('task/edit', [
+            'task' => $task
+        ]);
     }
 
     //update listing
-    public function update()
+    public function update($taskId)
     {
-        echo 'update route';
+        $task = $this->em->getRepository(Task::class)->findOneBy(['id' => $taskId]);
+
+        if (!$task) {
+            die('Task not found');
+        }
+
+        if (!$_POST || empty($_POST['description'])) {
+            die('Note could not be updated');
+        }
+
+        $task->setDescription($_POST['description']);
+        $task->setIsActive($_POST['isActive'] ? 1 : 0);
+
+        $this->em->flush();
+        redirect('/');
     }
 
     //delete task
     public function delete($taskId)
     {
         $task = $this->em->getRepository(Task::class)->findOneBy(['id' => $taskId]);
-        if ($task) {
-            $this->em->remove($task);
-            $this->em->flush();
-            redirect('/');
+
+        if (!$task) {
+            die('Task not found');
         }
-        echo 'delete error';
+
+        $this->em->remove($task);
+        $this->em->flush();
+        redirect('/');
     }
 
-    public function createTenDemoTasks()
+    public function createDemoTasks()
     {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $task = new Task();
             $task->setDescription('Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum voluptas voluptatem hic fugiat atque eum labore! Alias a inventore ad sapiente magnam rem eligendi dolores blanditiis sit, corrupti neque vel!');
             $task->setIsActive(($i % 2 == 0) ? 0 : 1);

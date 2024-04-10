@@ -11,7 +11,7 @@ $router->get('/', TaskController::class, 'index');
 $router->get('/about', TaskController::class, 'about');
 //show task create form
 $router->get('/task/create', TaskController::class, 'create');
-$router->get('/create-ten-demo-tasks', TaskController::class, 'createTenDemoTasks');
+$router->get('/create-demo-tasks', TaskController::class, 'createDemoTasks');
 //store task
 $router->post('/task', TaskController::class, 'store');
 //show task edit form

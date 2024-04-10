@@ -1,8 +1,9 @@
 <?php require_once APPROOT . '/src/View/include/header.php'; ?>
 <h1>Welcome to Simple PHP MVC Starter!</h1>
 
-<a href="/task/create">Create Task</a>
-
+<a href="/task/create">+ Create Task</a>
+<br>
+<br>
 <ul>
     <?php foreach ($tasks as $task) : ?>
         <li style="display: flex; gap: 20px;">
@@ -12,12 +13,11 @@
             <form id="delete-form" method="POST" action=<?= "/task/" . $task->getId()  ?>>
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="id" value="<?= $task->getId() ?>">
-                <input type="submit" value="X">
+                <button type="submit">🗑</button>
             </form>
         </li>
         -----------------------
     <?php endforeach; ?>
 </ul>
-<?= $id ?? '' ?>
 
 <?php require_once APPROOT . '/src/View/include/footer.php'; ?>

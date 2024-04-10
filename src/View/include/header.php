@@ -19,6 +19,6 @@
         <ul>
             <li><a href="<?= URLROOT; ?>"> Home </a></li>
             <li><a href="<?= URLROOT; ?>/about"> About </a></li>
-            <li><a href="<?= URLROOT; ?>/create-ten-demo-tasks"> Create 10 demo-tasks </a></li>
+            <li><a href="<?= URLROOT; ?>/create-demo-tasks"> Create demo-tasks </a></li>
         </ul>
     </nav>
