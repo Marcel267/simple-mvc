@@ -73,4 +73,16 @@ class HomeController extends Controller
         }
         echo 'delete error';
     }
+
+    public function createTenDemoTasks()
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $task = new Task();
+            $task->setDescription('Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum voluptas voluptatem hic fugiat atque eum labore! Alias a inventore ad sapiente magnam rem eligendi dolores blanditiis sit, corrupti neque vel!');
+            $task->setIsActive(($i % 2 == 0) ? 0 : 1);
+            $this->em->persist($task);
+        }
+        $this->em->flush();
+        redirect('/');
+    }
 }
