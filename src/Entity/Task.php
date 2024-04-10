@@ -19,6 +19,11 @@ class Task
     #[ORM\Column(type: "boolean")]
     private $isActive;
 
+    /** Many tasks have one category. This is the owning side. */
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'tasks')]
+    #[ORM\JoinColumn(name: 'category_id', referencedColumnName: 'id')]
+    private Category|null $category = null;
+
     public function getId(): int
     {
         return $this->id;
