@@ -6,72 +6,50 @@
 -- Generation Time: Mar 23, 2019 at 06:45 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
+SET
+  SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
+SET
+  AUTOCOMMIT = 0;
+
 START TRANSACTION;
-SET time_zone = "+00:00";
 
+SET
+  time_zone = "+00:00";
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */
+;
+
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */
+;
+
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */
+;
+
+/*!40101 SET NAMES utf8mb4 */
+;
 
 --
 -- Database: `todo_db`
 --
-CREATE DATABASE IF NOT EXISTS `simple_mvc` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `simple_mvc`;
+CREATE DATABASE IF NOT EXISTS `todo_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
+CREATE TABLE task (
+  id INT AUTO_INCREMENT NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  isActive TINYINT(1) NOT NULL,
+  category_id INT DEFAULT NULL,
+  INDEX IDX_527EDB2512469DE2 (category_id),
+  PRIMARY KEY(id)
+);
 
---
--- Table structure for table `task`
---
+CREATE TABLE category (
+  id INT AUTO_INCREMENT NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY(id)
+);
 
-CREATE TABLE `task` (
-  `id` int(11) NOT NULL,
-  `description` varchar(200) NOT NULL,
-  `completed` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Truncate table before insert `task`
---
-
-TRUNCATE TABLE `task`;
---
--- Dumping data for table `task`
---
-
-INSERT INTO `task` (`id`, `description`, `completed`) VALUES
-(1, 'Task 1', 1),
-(2, 'Task 2', 0),
-(3, 'Task 3', 0),
-(4, 'Task 4', 0);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `task`
---
-ALTER TABLE `task`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `task`
---
-ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+ALTER TABLE
+  task
+ADD
+  CONSTRAINT FK_527EDB2512469DE2 FOREIGN KEY (category_id) REFERENCES category (id);
