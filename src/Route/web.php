@@ -1,25 +1,24 @@
 <?php
 
-use App\Controller\HomeController;
+use App\Controller\TaskController;
 use App\Router;
 
 $router = new Router();
 
-//show tasks
-$router->get('/', HomeController::class, 'index');
+//list tasks
+$router->get('/', TaskController::class, 'index');
 //show about page
-$router->get('/about', HomeController::class, 'about');
+$router->get('/about', TaskController::class, 'about');
 //show task create form
-$router->get('/task/create', HomeController::class, 'create');
-$router->get('/create-ten-demo-tasks', HomeController::class, 'createTenDemoTasks');
+$router->get('/task/create', TaskController::class, 'create');
+$router->get('/create-ten-demo-tasks', TaskController::class, 'createTenDemoTasks');
 //store task
-$router->post('/task', HomeController::class, 'store');
+$router->post('/task', TaskController::class, 'store');
 //show task edit form
-$router->get('/task/{taskId}/edit', HomeController::class, 'edit');
+$router->get('/task/{taskId}/edit', TaskController::class, 'edit');
 //update listing
-$router->put('/task/{taskId}', HomeController::class, 'update');
-$router->get('/task/{taskId}', HomeController::class, 'update');
+$router->put('/task/{taskId}', TaskController::class, 'update');
 //delete task
-$router->delete('/task/{taskId}', HomeController::class, 'delete');
+$router->delete('/task/{taskId}', TaskController::class, 'delete');
 
 $router->dispatch();

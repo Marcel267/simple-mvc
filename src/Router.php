@@ -42,10 +42,8 @@ class Router
 
     public function dispatch()
     {
-        // dd('AAAAA');
         $uri = strtok($_SERVER['REQUEST_URI'], '?');
         $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
-        // dd($method);
 
 
         // Iterate through routes to find a match
@@ -62,7 +60,6 @@ class Router
             }
         }
 
-        // If no route matches, throw an exception
-        // throw new \Exception("No route found for URI: $uri");
+        echo ('<h1> 404 Page not found </h1>');
     }
 }

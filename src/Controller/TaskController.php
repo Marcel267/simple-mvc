@@ -7,7 +7,7 @@ use App\Controller;
 use App\Entity\Task;
 use Doctrine\ORM\EntityManagerInterface;
 
-class HomeController extends Controller
+class TaskController extends Controller
 {
     private EntityManagerInterface $em;
 
@@ -16,53 +16,57 @@ class HomeController extends Controller
         $this->em = Container::get('em');
     }
 
-    public function index($id)
+    //list tasks
+    public function index()
     {
         $taskRepository = $this->em->getRepository(Task::class);
-        $tasks = $taskRepository->findAll();
+        // $tasks = $taskRepository->findAll();
+        $tasks = $taskRepository->findBy([], ['id' => 'DESC']);
 
-        // dd($tasks);
-        $this->render('index', ['tasks' => $tasks, 'id' => $id]);
+        $this->render('index', ['tasks' => $tasks]);
     }
 
+    //show about page
     public function about()
     {
         $this->render('about');
     }
 
+    //show task create form
     public function create()
     {
-        $task = new Task();
-        $task->setDescription('JOOOOOO');
-        $task->setIsActive(0);
-
-        $this->em->persist($task);
-        $this->em->flush();
-        echo 'create route';
+        $this->render('task/create');
     }
 
+    //store task
     public function store()
     {
-        $task = new Task();
-        $task->setDescription('JOOOOOO');
-        $task->setIsActive(0);
+        if ($_POST && !empty($_POST['description'])) {
+            $task = new Task();
+            $task->setDescription($_POST['description']);
+            $task->setIsActive($_POST['isActive'] ? 1 : 0);
 
-        $this->em->persist($task);
-        $this->em->flush();
-        echo 'Task created';
+            $this->em->persist($task);
+            $this->em->flush();
+            redirect('/');
+        }
+
+        throw new \Exception('Note could not be created');
     }
 
+    //show task edit form
     public function edit()
     {
         echo 'edit route';
     }
 
-
+    //update listing
     public function update()
     {
         echo 'update route';
     }
 
+    //delete task
     public function delete($taskId)
     {
         $task = $this->em->getRepository(Task::class)->findOneBy(['id' => $taskId]);

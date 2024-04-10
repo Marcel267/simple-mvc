@@ -12,7 +12,9 @@
 <body class="container">
     <nav>
         <ul>
-            <li><strong>Simple MVC</strong></li>
+            <a href="/">
+                <li><strong>Simple MVC</strong></li>
+            </a>
         </ul>
         <ul>
             <li><a href="<?= URLROOT; ?>"> Home </a></li>
